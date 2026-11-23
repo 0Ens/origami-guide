@@ -7,6 +7,11 @@ spring:
       ddl-auto: validate
     # Keep DB sessions out of the web layer (avoids hidden lazy-loading queries).
     open-in-view: false
+    properties:
+      hibernate:
+        # Load lazy collections (steps, translations) for up to 32 parents in one
+        # query instead of one query per parent - the classic "N+1 select" problem.
+        default_batch_fetch_size: 32
 
 management:
   endpoints:
