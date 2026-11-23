@@ -1,9 +1,11 @@
+# Local development database.
+# Spring Boot's docker-compose support starts this automatically on `./mvnw spring-boot:run`.
 services:
   postgres:
-    image: 'postgres:latest'
+    image: 'postgres:17-alpine'
     environment:
-      - 'POSTGRES_DB=mydatabase'
-      - 'POSTGRES_PASSWORD=secret'
-      - 'POSTGRES_USER=myuser'
+      - 'POSTGRES_DB=origami'
+      - 'POSTGRES_USER=origami'
+      - 'POSTGRES_PASSWORD=origami'
     ports:
-      - '5432'
+      - '5432:5432'
