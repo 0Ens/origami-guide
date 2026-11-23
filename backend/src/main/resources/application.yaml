@@ -1,0 +1,19 @@
+spring:
+  application:
+    name: origami-guide-api
+  jpa:
+    # Flyway owns the schema; Hibernate only checks that entities match it.
+    hibernate:
+      ddl-auto: validate
+    # Keep DB sessions out of the web layer (avoids hidden lazy-loading queries).
+    open-in-view: false
+
+management:
+  endpoints:
+    web:
+      exposure:
+        include: health,info
+  endpoint:
+    health:
+      probes:
+        enabled: true
