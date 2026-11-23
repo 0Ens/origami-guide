@@ -22,6 +22,7 @@ export const tr: Translation = {
     steps_other: '{{count}} adım',
     back: 'Tüm modeller',
     notFound: 'Böyle bir model yok.',
+    error: 'Model yüklenemedi. API çalışıyor mu?',
   },
   difficulty: {
     BEGINNER: 'Başlangıç',

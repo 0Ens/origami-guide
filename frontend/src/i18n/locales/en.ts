@@ -19,6 +19,7 @@ export const en = {
     steps_other: '{{count}} steps',
     back: 'All models',
     notFound: 'This model does not exist.',
+    error: 'Could not load this model. Is the API running?',
   },
   difficulty: {
     BEGINNER: 'Beginner',

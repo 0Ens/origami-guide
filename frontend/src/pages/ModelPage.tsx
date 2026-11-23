@@ -6,6 +6,13 @@ import { PaperCard } from '../components/PaperCard'
 import { StatusMessage } from '../components/StatusMessage'
 import './ModelPage.css'
 
+/**
+ * 404: no such model. 400: the API rejected the slug's format, so no such
+ * model can exist either. Retrying won't help in both cases, unlike 5xx or
+ * network errors.
+ */
+const isMissing = (error: unknown) => error instanceof ApiError && (error.status === 404 || error.status === 400)
+
 export function ModelPage() {
   const { slug = '' } = useParams()
   const { t, i18n } = useTranslation()
@@ -21,11 +28,11 @@ export function ModelPage() {
       {model.status === 'loading' && <StatusMessage>{t('home.loading')}</StatusMessage>}
 
       {model.status === 'error' &&
-        (model.error instanceof ApiError && model.error.status === 404 ? (
+        (isMissing(model.error) ? (
           <StatusMessage>{t('model.notFound')}</StatusMessage>
         ) : (
           <StatusMessage action={{ label: t('home.retry'), onClick: model.reload }}>
-            {t('home.error')}
+            {t('model.error')}
           </StatusMessage>
         ))}
 
