@@ -23,7 +23,10 @@ export interface ModelSummary {
 export interface Step {
   number: number
   instruction: string
-  /** Fold definition, interpreted by the fold engine. */
+  /**
+   * Fold definition as sent by the API. Kept `unknown` on purpose: it is
+   * untrusted JSON until `parseFoldSpec` from the fold engine has checked it.
+   */
   fold: unknown
 }
 
