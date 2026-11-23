@@ -1,0 +1,36 @@
+.paper-card {
+  display: flex;
+  gap: 14px;
+  align-items: flex-start;
+  padding: 14px 16px;
+  border: 1px solid var(--border);
+  border-radius: var(--radius);
+  background: var(--surface);
+}
+
+.paper-card p {
+  margin: 0;
+}
+
+.paper-card__title {
+  font-size: 0.75rem;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 0.06em;
+  color: var(--text-muted);
+}
+
+.paper-card__size {
+  font-size: 1.25rem;
+  font-weight: 700;
+}
+
+.paper-card__type {
+  font-size: 0.9rem;
+}
+
+.paper-card__note {
+  margin-top: 6px !important;
+  font-size: 0.85rem;
+  color: var(--text-muted);
+}

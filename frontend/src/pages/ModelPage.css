@@ -1,0 +1,26 @@
+.model-page__back {
+  display: inline-block;
+  margin-bottom: 16px;
+  color: var(--text-muted);
+  text-decoration: none;
+  font-size: 0.9rem;
+}
+
+.model-page__back:hover {
+  color: var(--accent);
+}
+
+.model-page__header {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-between;
+  align-items: flex-start;
+  gap: 16px;
+  margin-bottom: 20px;
+}
+
+.model-page__header p {
+  margin: 6px 0 0;
+  color: var(--text-muted);
+  max-width: 60ch;
+}
