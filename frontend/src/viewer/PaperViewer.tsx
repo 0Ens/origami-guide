@@ -1,6 +1,7 @@
 import { OrbitControls } from '@react-three/drei'
 import { Canvas } from '@react-three/fiber'
 import type { FoldSequence } from '../fold-engine'
+import { CameraReset } from './CameraReset'
 import { Paper } from './Paper'
 import './PaperViewer.css'
 
@@ -12,13 +13,22 @@ export interface PaperViewerProps {
   backColor: string
   /** Describes the scene for screen readers. */
   label: string
+  /** Increase to put the camera back to its starting view. */
+  cameraResets?: number
 }
 
 /**
  * The 3D view of a model. Rendering is on demand: nothing is drawn while
  * the paper and the camera are still, which saves battery on phones.
  */
-export default function PaperViewer({ sequence, step, frontColor, backColor, label }: PaperViewerProps) {
+export default function PaperViewer({
+  sequence,
+  step,
+  frontColor,
+  backColor,
+  label,
+  cameraResets = 0,
+}: PaperViewerProps) {
   return (
     <div className="paper-viewer" role="img" aria-label={label}>
       <Canvas frameloop="demand" dpr={[1, 2]} camera={{ position: [0.45, 1.4, 1.05], fov: 40, near: 0.01, far: 20 }}>
@@ -28,6 +38,7 @@ export default function PaperViewer({ sequence, step, frontColor, backColor, lab
         <directionalLight position={[-1, -2, -0.5]} intensity={0.5} />
         <Paper sequence={sequence} target={step} frontColor={frontColor} backColor={backColor} />
         <OrbitControls makeDefault enablePan={false} minDistance={0.7} maxDistance={4} />
+        <CameraReset signal={cameraResets} />
       </Canvas>
     </div>
   )
