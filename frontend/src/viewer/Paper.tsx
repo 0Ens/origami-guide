@@ -1,8 +1,9 @@
 import { useFrame, useThree } from '@react-three/fiber'
-import { useEffect, useMemo, useRef } from 'react'
+import { useEffect, useMemo, useRef, useState } from 'react'
 import { BackSide, BufferAttribute, BufferGeometry, FrontSide, type Group } from 'three'
 import { poseAt, type FoldSequence } from '../fold-engine'
 import { approach } from './animation'
+import { FoldGuideMarks } from './FoldGuideMarks'
 import { paperBuffers } from './paperBuffers'
 import { useReducedMotion } from './useReducedMotion'
 
@@ -34,6 +35,8 @@ export function Paper({ sequence, target, frontColor, backColor }: PaperProps) {
   const goal = Math.min(sequence.plans.length, Math.max(0, target))
   const position = useRef(goal)
   const drawn = useRef<{ sequence: FoldSequence; position: number } | null>(null)
+  // The step the paper rests on, or null while it moves. Drives the fold guide.
+  const [resting, setResting] = useState<number | null>(null)
 
   useEffect(() => () => [surface, outline].forEach((geometry) => geometry.dispose()), [surface, outline])
 
@@ -55,7 +58,13 @@ export function Paper({ sequence, target, frontColor, backColor }: PaperProps) {
     }
 
     if (position.current !== goal) invalidate()
+
+    // React state only changes when the paper starts or stops, not every frame.
+    const rest = position.current === goal && Number.isInteger(goal) ? goal : null
+    if (rest !== resting) setResting(rest)
   })
+
+  const nextPlan = resting === null ? undefined : sequence.plans[resting]
 
   return (
     // The engine works in the XY plane with +z up; three.js has +y up. Lay the sheet on the table.
@@ -70,6 +79,7 @@ export function Paper({ sequence, target, frontColor, backColor }: PaperProps) {
         <lineSegments geometry={outline}>
           <lineBasicMaterial color="#000000" transparent opacity={0.25} />
         </lineSegments>
+        {nextPlan && <FoldGuideMarks plan={nextPlan} />}
       </group>
     </group>
   )
