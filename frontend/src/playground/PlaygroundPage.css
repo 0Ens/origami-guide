@@ -1,0 +1,33 @@
+.playground {
+  display: grid;
+  gap: 16px;
+  max-width: 760px;
+}
+
+.playground h1 {
+  margin: 0;
+}
+
+.playground__loading {
+  display: grid;
+  place-items: center;
+  aspect-ratio: 4 / 3;
+  color: var(--text-muted);
+}
+
+.playground__controls {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 12px;
+}
+
+.playground__controls input {
+  flex: 1;
+  min-width: 160px;
+}
+
+.playground__controls output {
+  font-variant-numeric: tabular-nums;
+  color: var(--text-muted);
+}
