@@ -18,7 +18,8 @@ export function useStepPlayer(last: number) {
   const step = Math.min(state.step, last)
 
   useEffect(() => {
-    if (!state.playing) return
+    // While a language switch reloads the model, `last` is briefly 0: wait for it.
+    if (!state.playing || last === 0) return
     const timer = window.setTimeout(() => dispatch({ type: 'tick', last }), STEP_SECONDS * 1000 + PAUSE_MS)
     return () => window.clearTimeout(timer)
   }, [state.playing, state.step, last])
