@@ -2,6 +2,7 @@
 export { applyStep, FoldError, planStep, type Motion, type StepPlan } from './fold'
 export { parseFoldSpec } from './parse'
 export { LAYER_GAP, poseFlat, poseStep, type FacePose } from './pose'
-export { foldSequence, type FoldSequence } from './sequence'
+export { foldGuide, type FoldGuide } from './guide'
+export { easeInOut, foldSequence, poseAt, type FoldSequence } from './sequence'
 export { createSheet } from './split'
 export type * from './types'
