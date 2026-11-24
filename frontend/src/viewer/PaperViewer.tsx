@@ -6,7 +6,7 @@ import './PaperViewer.css'
 
 export interface PaperViewerProps {
   sequence: FoldSequence
-  /** Step to show: 0 is the blank sheet, n the model after step n. */
+  /** Step to show: 0 is the blank sheet, n the model after step n. Changes animate. */
   step: number
   frontColor: string
   backColor: string
@@ -26,7 +26,7 @@ export default function PaperViewer({ sequence, step, frontColor, backColor, lab
         <directionalLight position={[0.8, 2.5, 1.5]} intensity={1.6} />
         {/* A weaker light from below, so the underside reads when the model is turned over. */}
         <directionalLight position={[-1, -2, -0.5]} intensity={0.5} />
-        <Paper sequence={sequence} position={step} frontColor={frontColor} backColor={backColor} />
+        <Paper sequence={sequence} target={step} frontColor={frontColor} backColor={backColor} />
         <OrbitControls makeDefault enablePan={false} minDistance={0.7} maxDistance={4} />
       </Canvas>
     </div>
