@@ -19,10 +19,14 @@ describe('stepPlayer', () => {
 
   it('plays to the end and stops there', () => {
     let state = stepPlayer(initialPlayer, { type: 'togglePlay', last })
-    expect(state).toEqual({ step: 0, playing: true })
-    state = run(state, { type: 'tick', last }, { type: 'tick', last })
+    expect(state).toEqual({ step: 1, playing: true })
+    state = stepPlayer(state, { type: 'tick', last })
     expect(state).toEqual({ step: 2, playing: true })
     expect(stepPlayer(state, { type: 'tick', last })).toEqual({ step: 3, playing: false })
+  })
+
+  it('plays the last fold without staying in play mode', () => {
+    expect(stepPlayer({ step: 2, playing: false }, { type: 'togglePlay', last })).toEqual({ step: 3, playing: false })
   })
 
   it('stops playing when the learner steps by hand', () => {

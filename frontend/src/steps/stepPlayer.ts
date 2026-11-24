@@ -34,8 +34,10 @@ export function stepPlayer(state: StepPlayer, action: StepAction): StepPlayer {
       return { step: clamp(Math.round(action.step), last), playing: false }
     case 'togglePlay':
       if (state.playing) return { ...state, playing: false }
-      // Playing a finished model starts it over.
-      return { step: state.step >= last ? 0 : state.step, playing: last > 0 }
+      // Playing a finished model rewinds it; then the timer takes over.
+      if (state.step >= last) return { step: 0, playing: last > 0 }
+      // Otherwise the next fold starts right away, like a video does.
+      return { step: state.step + 1, playing: state.step + 1 < last }
     case 'tick': {
       if (!state.playing) return state
       const step = clamp(state.step + 1, last)
